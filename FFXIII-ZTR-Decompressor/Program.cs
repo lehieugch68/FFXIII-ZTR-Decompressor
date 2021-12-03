@@ -11,11 +11,12 @@ namespace FFXIII_ZTR_Decompressor
     {
         static void Main(string[] args)
         {
-            string[] test = ZTR.Decompressor(@"C:\Users\LeHieu\Downloads\auto_yus_us_compressed\auto_yus_us-bak.ztr");
+            /*string[] test = ZTR.Decompressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr");
 
-            File.WriteAllLines(@"C:\Users\LeHieu\Downloads\auto_yus_us_compressed\auto_yus_us.txt", test);
+            File.WriteAllLines(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt", test);*/
 
-            //ZTR.Compressor(@"C:\Users\LeHieu\Downloads\auto_yus_us_compressed\auto_yus_us-bak.ztr", @"C:\Users\LeHieu\Downloads\auto_yus_us_compressed\auto_yus_us.txt");
+            byte[] com = ZTR.Compressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr", @"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt");
+            File.WriteAllBytes(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt.ztr", com);
             Console.ReadKey();
         }
     }

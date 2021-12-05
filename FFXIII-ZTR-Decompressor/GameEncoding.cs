@@ -43,6 +43,7 @@ namespace FFXIII_ZTR_Decompressor
             gameCode.Add("{VarF4 64}", new byte[] { 0xF4, 0x40 });
             gameCode.Add("{VarF4 65}", new byte[] { 0xF4, 0x41 });
             gameCode.Add("{VarF4 66}", new byte[] { 0xF4, 0x42 });
+            gameCode.Add("{VarF4 67}", new byte[] { 0xF4, 0x43 });
             gameCode.Add("{VarF2 90}", new byte[] { 0xF2, 0x5A });
             gameCode.Add("{VarF2 114}", new byte[] { 0xF2, 0x72 });
             gameCode.Add("{VarF2 116}", new byte[] { 0xF2, 0x74 });

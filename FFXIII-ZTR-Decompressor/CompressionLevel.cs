@@ -21,11 +21,11 @@ namespace FFXIII_ZTR_Decompressor
             new byte[] { 0x40, 0x72 },
             new byte[] { 0x21, 0x3F },
         };*/
-        public static bool Increase(ref Dictionary<byte, byte[]> dict, byte[] input, ref byte[] unusedBytes, int unusedBytesIndex)
+        public static bool Increase(ref Dictionary<byte, byte[]> dict, byte[] input, ref byte[] unusedBytes, ref int unusedBytesIndex)
         {
             byte[] value = GetDictionaryValue(input);
             if (unusedBytes.Length < 1 || value == null || dict.Values.Any(v => v.SequenceEqual(value))) return false;
-            dict.Add(unusedBytes[unusedBytesIndex], value);
+            dict.Add(unusedBytes[unusedBytesIndex++], value);
             return true;
         }
         private static byte[] GetDictionaryValue(byte[] data)

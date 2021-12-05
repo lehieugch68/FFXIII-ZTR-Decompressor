@@ -11,24 +11,30 @@ namespace FFXIII_ZTR_Decompressor
     {
         static void Main(string[] args)
         {
-            /*string[] test = ZTR.Decompressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr");
-
-            File.WriteAllLines(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt", test);*/
-            /*string[] test = ZTR.Decompressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt.ztr");
-
-            File.WriteAllLines(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt.ztr.txt", test);*/
-
-            byte[] com = ZTR.Compressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr", @"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt");
-            File.WriteAllBytes(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt.ztr", com);
-
-            /*byte[] com = ZTR.Compressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.ztr", @"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.txt");
-            File.WriteAllBytes(@"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.txt - Copy.ztr", com);
-
-            string[] test = ZTR.Decompressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.txt - Copy.ztr");
-
-            File.WriteAllLines(@"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.txt - Copy.ztr.txt", test);*/
-
-            Console.ReadKey();
+            Console.Title = "Final Fantasy XIII ZTR Decompressor by LeHieu - VietHoaGame";
+            if (args.Length > 0)
+            {
+                foreach (string file in args)
+                {
+                    string ext = Path.GetExtension(file).ToLower();
+                    if (ext == ".txt")
+                    {
+                        string ztr = Path.Combine(Path.GetDirectoryName(file), $"{Path.GetFileNameWithoutExtension(file)}.ztr");
+                        byte[] result = ZTR.Compressor(ztr, file);
+                        File.WriteAllBytes($"{file}.ztr", result);
+                    }
+                    else if (ext == ".ztr")
+                    {
+                        string[] result = ZTR.Decompressor(file);
+                        File.WriteAllLines(Path.Combine(Path.GetDirectoryName(file), $"{Path.GetFileNameWithoutExtension(file)}.txt"), result);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please drag and drop files/folder into this tool to unpack/repack.");
+            }
+            //Console.ReadKey();
         }
     }
 }

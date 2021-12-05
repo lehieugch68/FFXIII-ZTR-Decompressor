@@ -14,19 +14,19 @@ namespace FFXIII_ZTR_Decompressor
             /*string[] test = ZTR.Decompressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr");
 
             File.WriteAllLines(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt", test);*/
-            /*string[] test = ZTR.Decompressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt.ztr");
+            string[] test = ZTR.Decompressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt.ztr");
 
-            File.WriteAllLines(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt.ztr.txt", test);*/
+            File.WriteAllLines(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt.ztr.txt", test);
 
-            /*byte[] com = ZTR.Compressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr", @"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt");
-            File.WriteAllBytes(@"D:\VietHoaGame\Lightning Returns\ZTR Test\resident\system\txtres_us.ztr.txt.ztr", com);*/
 
-            byte[] com = ZTR.Compressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.ztr", @"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.txt");
+
+
+            /*byte[] com = ZTR.Compressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.ztr", @"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.txt");
             File.WriteAllBytes(@"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.txt - Copy.ztr", com);
 
             string[] test = ZTR.Decompressor(@"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.txt - Copy.ztr");
 
-            File.WriteAllLines(@"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.txt - Copy.ztr.txt", test);
+            File.WriteAllLines(@"D:\VietHoaGame\Lightning Returns\ZTR Test\txtres_us_-_Copy.txt - Copy.ztr.txt", test);*/
 
             Console.ReadKey();
         }

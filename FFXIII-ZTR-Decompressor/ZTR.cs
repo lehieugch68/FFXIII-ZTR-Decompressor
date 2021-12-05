@@ -266,7 +266,7 @@ namespace FFXIII_ZTR_Decompressor
                         {
                             uncompressedBlock.AddRange(inputText.ElementAt(textIndex++).Value);
                         }
-                        int end = textIndex;
+                        int end = textIndex++;
                         int textPointer = 0;
                         byte[] unusedBytes = GetUnusedBytes(uncompressedBlock.ToArray());
                         int unusedBytesIndex = 0;

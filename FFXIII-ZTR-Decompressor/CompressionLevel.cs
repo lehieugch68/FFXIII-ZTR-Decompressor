@@ -10,17 +10,26 @@ namespace FFXIII_ZTR_Decompressor
 {
     public static class CompressionLevel
     {
-        /*private static List<byte[]> _Default = new List<byte[]>()
+        private static List<byte[]> _Default = new List<byte[]>()
         { 
             new byte[] { 0x0, 0x0 },
-            new byte[] { 0x0, 0x1 },
+            /*new byte[] { 0x0, 0x1 },
             new byte[] { 0x2E, 0x20 },
             new byte[] { 0x2C, 0x20 },
             new byte[] { 0x21, 0x20 },
             new byte[] { 0x3F, 0x20 },
             new byte[] { 0x40, 0x72 },
-            new byte[] { 0x21, 0x3F },
-        };*/
+            new byte[] { 0x21, 0x3F },*/
+        };
+        public static Dictionary<byte, byte[]> Default(ref byte[] unusedBytes, ref int unusedBytesIndex)
+        {
+            Dictionary<byte, byte[]> dict = new Dictionary<byte, byte[]>();
+            for (int i = 0; i < unusedBytes.Length && i < _Default.Count; i++)
+            {
+                dict.Add(unusedBytes[unusedBytesIndex++], _Default[i]);
+            }
+            return dict;
+        }
         public static bool Increase(ref Dictionary<byte, byte[]> dict, byte[] input, ref byte[] unusedBytes, ref int unusedBytesIndex)
         {
             byte[] value = GetDictionaryValue(input);

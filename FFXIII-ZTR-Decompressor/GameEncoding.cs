@@ -13,9 +13,21 @@ namespace FFXIII_ZTR_Decompressor
         {
             Dictionary<string, byte[]> gameCode = new Dictionary<string, byte[]>();
 
+            gameCode.Add("œ", new byte[] { 0x85, 0x5C });
             gameCode.Add("—", new byte[] { 0x85, 0x57 });
             gameCode.Add("®", new byte[] { 0x85, 0x6E });
+            gameCode.Add("à", new byte[] { 0x85, 0xBF });
+            gameCode.Add("â", new byte[] { 0x85, 0xC1 });
+            gameCode.Add("è", new byte[] { 0x85, 0xC7 });
             gameCode.Add("é", new byte[] { 0x85, 0xC8 });
+            gameCode.Add("ê", new byte[] { 0x85, 0xC9 });
+            gameCode.Add("î", new byte[] { 0x85, 0xCD });
+            gameCode.Add("ï", new byte[] { 0x85, 0xCE });
+            gameCode.Add("û", new byte[] { 0x85, 0xDA });
+            gameCode.Add("«", new byte[] { 0x85, 0x6B });
+            gameCode.Add("»", new byte[] { 0x85, 0x7B });
+            gameCode.Add("Â", new byte[] { 0x85, 0x82 });
+            gameCode.Add("É", new byte[] { 0x85, 0x89 });
 
             gameCode.Add("「", new byte[] { 0x81, 0x75 });
             gameCode.Add("」", new byte[] { 0x81, 0x76 });
@@ -58,6 +70,7 @@ namespace FFXIII_ZTR_Decompressor
             gameCode.Add("{VarF6 64}", new byte[] { 0xF6, 0x40 });
 
             gameCode.Add("{Var83 182}", new byte[] { 0x83, 0xB6 });
+            gameCode.Add("{Var83 192}", new byte[] { 0x83, 0xC0 });
 
             gameCode.Add("{Icon Eye01}", new byte[] { 0xF0, 0x61 });
             gameCode.Add("{Icon Gunblade}", new byte[] { 0xF0, 0x49 });

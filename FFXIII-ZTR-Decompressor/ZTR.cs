@@ -201,6 +201,7 @@ namespace FFXIII_ZTR_Decompressor
                     }
                 }
             }
+            int maxBlockSize = 4096 * 4;
             using (BeBinaryWriter writer = new BeBinaryWriter(result))
             {
                 using (FileStream ztrStream = File.OpenRead(ztr))
@@ -254,7 +255,7 @@ namespace FFXIII_ZTR_Decompressor
                         List<byte> uncompressedBlock = new List<byte>();
                         List<TextInfo> texts = new List<TextInfo>();
                         int start = textIndex;
-                        while (uncompressedBlock.Count + textInfos[textIndex].Text.Length < (4096 * 4) && textIndex < textInfos.Length - 1) //maximum capacity per block ?
+                        while (uncompressedBlock.Count + textInfos[textIndex].Text.Length < maxBlockSize && textIndex < textInfos.Length - 1) //maximum capacity per block ?
                         {
                             uncompressedBlock.AddRange(textInfos[textIndex].Text);
                             texts.Add(textInfos[textIndex]);
@@ -262,15 +263,15 @@ namespace FFXIII_ZTR_Decompressor
                         }
                         int end = textIndex;
                         texts.Add(textInfos[end]);
-                        TextInfo[] texts_sorted = texts.OrderByDescending(entry => entry.Text.Length).ToArray();
+                        TextInfo[] textsSorted = texts.OrderByDescending(entry => entry.Text.Length).ToArray();
                         byte[] unusedBytes = GetUnusedBytes(uncompressedBlock.ToArray());
                         int unusedBytesIndex = 0;
                         List<byte> compressedBlock = new List<byte>();
                         Dictionary<byte, byte[]> dict = CompressionLevel.Default(ref unusedBytes, ref unusedBytesIndex);
-                        for (int x = 0; x < texts_sorted.Length; x++)
+                        for (int x = 0; x < textsSorted.Length; x++)
                         {
                             bool optimized = false;
-                            byte[] compressedText = texts_sorted[x].Text;
+                            byte[] compressedText = textsSorted[x].Text;
                             foreach (KeyValuePair<byte, byte[]> entry in dict)
                             {
                                 byte[] temp = ByteArrayHandler.ReplaceBytes(compressedText, entry.Value, new byte[] { entry.Key });
@@ -285,7 +286,7 @@ namespace FFXIII_ZTR_Decompressor
                                     if (temp != null) compressedText = temp;
                                 }
                             }
-                            TextInfo info = Array.Find(textInfos, entry => entry.Index == texts_sorted[x].Index);
+                            TextInfo info = Array.Find(textInfos, entry => entry.Index == textsSorted[x].Index);
                             info.Text = compressedText;
                             info.Block = (byte)(blockCount - 1);
                         }
@@ -296,30 +297,7 @@ namespace FFXIII_ZTR_Decompressor
                             textInfos[x].CompressedPointer = (ushort)textPointer;
                             textPointer += textInfos[x].Text.Length;
                         }
-                        /*for (int x = start; x <= end; x++)
-                        {
-                            bool optimized = false;
-                            byte[] compressedText = textInfos[x].Text;
-                            foreach (KeyValuePair<byte, byte[]> entry in dict)
-                            {
-                                byte[] temp = ByteArrayHandler.ReplaceBytes(compressedText, entry.Value, new byte[] { entry.Key });
-                                if (temp != null) compressedText = temp;
-                            }
-                            while (compressedText.Length >= 2 && !optimized && unusedBytesIndex < unusedBytes.Length && (dict.Count * 3) + 4 < compressedText.Length)
-                            {
-                                optimized = !CompressionLevel.Increase(ref dict, compressedText, ref unusedBytes, ref unusedBytesIndex);
-                                if (!optimized)
-                                {
-                                    byte[] temp = ByteArrayHandler.ReplaceBytes(compressedText, dict.Last().Value, new byte[] { dict.Last().Key });
-                                    if (temp != null) compressedText = temp;
-                                }
-                            }
-                            textInfos[x].Block = (byte)(blockCount - 1);
-                            textInfos[x].CompressedPointer = (ushort)textPointer;
-                            textPointer += compressedText.Length;
-                            compressedBlock.AddRange(compressedText);
-                        }*/
-                        compressWr.Write((int)(dict.Count * 3));
+                        compressWr.Write(dict.Count * 3);
                         foreach (KeyValuePair<byte, byte[]> entry in dict)
                         {
                             compressWr.Write(entry.Key);

@@ -12,10 +12,6 @@ namespace FFXIII_ZTR_Decompressor
         static void Main(string[] args)
         {
             Console.Title = "Final Fantasy XIII ZTR Decompressor by LeHieu - VietHoaGame";
-            /*string file = @"D:\CSharp\FFXIII-ZTR-Decompressor\FFXIII-ZTR-Decompressor\bin\Debug\txtres_us_-_Copy.txt";
-            string ztr = Path.Combine(Path.GetDirectoryName(file), $"{Path.GetFileNameWithoutExtension(file)}.ztr");
-            byte[] result = ZTR.Compressor(ztr, file);
-            File.WriteAllBytes($"{file}.ztr", result);*/
             if (args.Length > 0)
             {
                 foreach (string file in args)

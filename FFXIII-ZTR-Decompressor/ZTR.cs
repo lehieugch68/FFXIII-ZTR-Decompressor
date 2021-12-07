@@ -129,8 +129,9 @@ namespace FFXIII_ZTR_Decompressor
                     pointer++;
                 }
             }
+            File.WriteAllBytes(Path.Combine(Environment.CurrentDirectory, "Decompressed.ztr"), totalBytes.ToArray());
             string[] result = new string[header.TextCount];
-            Dictionary<string, byte[]> gameCode = GameEncoding.GetGameCode();
+            Dictionary<string, byte[]> gameCode = GameEncoding._GameCode;
             int index = 0;
             for (int i = 0; i < result.Length; i++)
             {
@@ -212,7 +213,7 @@ namespace FFXIII_ZTR_Decompressor
                     long idsCompressedPointer = reader.BaseStream.Position;
                     string[] idsDecompressed = DecompressIDs(ref reader, header);
                     long textCompressedPointer = reader.BaseStream.Position;
-                    Dictionary<string, byte[]> gameCode = GameEncoding.GetGameCode();
+                    Dictionary<string, byte[]> gameCode = GameEncoding._GameCode;
                     int uncompressedSize = 0;
                     for (int i = 0; i < idsDecompressed.Length; i++)
                     {

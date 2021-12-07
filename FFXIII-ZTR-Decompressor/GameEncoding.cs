@@ -16,8 +16,8 @@ namespace FFXIII_ZTR_Decompressor
             null, null, null, null, null, null, null, null, null, null,
             "「", "」", "『", "』", "【", "】", null /*Plus*/, null /*Minus*/, null, null /*Multiplication*/, null, null, "゠", null, null /*Less-than*/, null /*Greater-than*/,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            "％", null, "＆", null, null, null, "☆", "★", "⭘", null, "⭗", null, null, "⬜", "⬛", null, null,
-            "※", null, "→", "←", "↑", "↓",
+            "％", null, "＆", null, null, null, "☆", "★", "⭘", null, "⭗", null, null, "◻", "◼", null, null,
+            "※", null, "→", "←", "↑", "↓", null, null, null, null, null, null, null,
 
         };
         private static readonly string[] _LatinCharacters = new string[]
@@ -74,8 +74,8 @@ namespace FFXIII_ZTR_Decompressor
             {"★", new byte[] { 0x81, 0x9A }},
             {"⭘", new byte[] { 0x81, 0x9B }},
             {"⭗", new byte[] { 0x81, 0x9D }},
-            {"⬜", new byte[] { 0x81, 0xA0 }},
-            {"⬛", new byte[] { 0x81, 0xA1 }},
+            {"◻", new byte[] { 0x81, 0xA0 }},
+            {"◼", new byte[] { 0x81, 0xA1 }},
             {"※", new byte[] { 0x81, 0xA4 }},
             {"→", new byte[] { 0x81, 0xA6 }},
             {"←", new byte[] { 0x81, 0xA7 }},

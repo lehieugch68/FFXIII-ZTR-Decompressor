@@ -12,7 +12,7 @@ namespace FFXIII_ZTR_Decompressor
         {
             " ", "、", "。", null, null, "・", "：", null, "？", "！",
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            "々", null, null, "ー", "ｰ", null, null /*Slash*/, null, "〜", null, null, null, "…", null, null, null, "“", "”", "（", "）",
+            "々", null, null, "ー", "ｰ", null, null /*Slash*/, null, "〜", null, null, null, /*"…",*/ null, null, null, /*"“", "”",*/ "（", "）",
             null, null, null, null, null, null, null, null, null, null,
             "「", "」", "『", "』", "【", "】", null /*Plus*/, null /*Minus*/, null, null /*Multiplication*/, null, null, "゠", null, null /*Less-than*/, null /*Greater-than*/,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null,
@@ -51,9 +51,9 @@ namespace FFXIII_ZTR_Decompressor
             {"ｰ", new byte[] { 0x81, 0x5C }},
             /*{"/", new byte[] { 0x81, 0x5E }},*/
             {"〜", new byte[] { 0x81, 0x5F }},
-            {"…", new byte[] { 0x81, 0x63 }},
-            {"“", new byte[] { 0x81, 0x67 }},
-            {"”", new byte[] { 0x81, 0x68 }},
+            //{"…", new byte[] { 0x81, 0x63 }},
+            /*{"“", new byte[] { 0x81, 0x67 }},
+            {"”", new byte[] { 0x81, 0x68 }},*/
             {"（", new byte[] { 0x81, 0x69 }},
             {"）", new byte[] { 0x81, 0x6A }},
             {"「", new byte[] { 0x81, 0x75 }},

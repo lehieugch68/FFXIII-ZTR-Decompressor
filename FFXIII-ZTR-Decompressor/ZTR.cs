@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using Be.IO;
 
@@ -129,7 +128,7 @@ namespace FFXIII_ZTR_Decompressor
                     pointer++;
                 }
             }
-            File.WriteAllBytes(Path.Combine(Environment.CurrentDirectory, "Decompressed.ztr"), totalBytes.ToArray());
+            //File.WriteAllBytes(Path.Combine(Environment.CurrentDirectory, "Decompressed.ztr"), totalBytes.ToArray());
             string[] result = new string[header.TextCount];
             Dictionary<string, byte[]> gameCode = GameEncoding._GameCode;
             int index = 0;
@@ -262,8 +261,7 @@ namespace FFXIII_ZTR_Decompressor
                             texts.Add(textInfos[textIndex]);
                             textIndex++;
                         }
-                        int end = textIndex;
-                        texts.Add(textInfos[end]);
+                        int end = textIndex++;
                         TextInfo[] textsSorted = texts.OrderByDescending(entry => entry.Text.Length).ToArray();
                         byte[] unusedBytes = GetUnusedBytes(uncompressedBlock.ToArray());
                         int unusedBytesIndex = 0;

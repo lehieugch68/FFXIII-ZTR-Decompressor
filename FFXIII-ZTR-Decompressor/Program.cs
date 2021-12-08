@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace FFXIII_ZTR_Decompressor
@@ -34,7 +33,7 @@ namespace FFXIII_ZTR_Decompressor
             {
                 Console.WriteLine("Please drag and drop files/folder into this tool to unpack/repack.");
             }
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }

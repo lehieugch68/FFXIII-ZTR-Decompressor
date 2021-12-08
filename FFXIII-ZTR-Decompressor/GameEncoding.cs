@@ -5,20 +5,12 @@ using System.Text;
 
 namespace FFXIII_ZTR_Decompressor
 {
-    public class GameEncoding
+    public static class GameEncoding
     {
-        private static Dictionary<string, byte[]> _Instance;
-        private static readonly string[] _JapaneseSymbols = new string[]
+        public static Dictionary<string, int> _EncodingCode = new Dictionary<string, int>
         {
-            " ", "、", "。", null, null, "・", "：", null, "？", "！",
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            "々", null, null, "ー", "ｰ", null, null /*Slash*/, null, "〜", null, null, null, /*"…",*/ null, null, null, /*"“", "”",*/ "（", "）",
-            null, null, null, null, null, null, null, null, null, null,
-            "「", "」", "『", "』", "【", "】", null /*Plus*/, null /*Minus*/, null, null /*Multiplication*/, null, null, "゠", null, null /*Less-than*/, null /*Greater-than*/,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            "％", null, "＆", null, null, null, "☆", "★", "⭘", null, "⭗", null, null, "◻", "◼", null, null,
-            "※", null, "→", "←", "↑", "↓", null, null, null, null, null, null, null,
-
+            { "_jp", 932 }, //Japanese (Shift-JIS)
+            { "_ch", 950 }, //Chinese Traditional (Big5)	
         };
         private static readonly string[] _LatinCharacters = new string[]
         {
@@ -33,13 +25,9 @@ namespace FFXIII_ZTR_Decompressor
             "Î", "Ï", "Ð", "Ñ", "Ò", "Ó", "Ô", "Õ", "Ö", "×", "Ø", "Ù", "Ú", "Û", "Ü", "Ý", "Þ", "ß", "à", "á", "â", "ã", "ä", "å", "æ", "ç", "è", "é",
             "ê", "ë", "ì", "í", "î", "ï", "ð", "ñ", "ò", "ó", "ô", "õ", "ö", "÷", "ø", "ù", "ú", "û", "ü", "ý", "þ", "ÿ"
         };
-        public static Dictionary<string, byte[]> _JapaneseCode = new Dictionary<string, byte[]>()
+        public static Dictionary<string, byte[]> _JapaneseSymbol = new Dictionary<string, byte[]>
         {
-            
-        };
-        public static Dictionary<string, byte[]> _GameCode = new Dictionary<string, byte[]>
-        {
-            #region Japanese Symobols
+            #region SHIFT JIS Symbols
             {"、", new byte[] { 0x81, 0x41 } },
             {"。", new byte[] { 0x81, 0x42 } },
             {"･", new byte[] { 0x81, 0x45 }},
@@ -49,7 +37,7 @@ namespace FFXIII_ZTR_Decompressor
             {"々", new byte[] { 0x81, 0x58 }},
             {"ー", new byte[] { 0x81, 0x5B }},
             {"ｰ", new byte[] { 0x81, 0x5C }},
-            /*{"/", new byte[] { 0x81, 0x5E }},*/
+            {"／", new byte[] { 0x81, 0x5E }},
             {"〜", new byte[] { 0x81, 0x5F }},
             //{"…", new byte[] { 0x81, 0x63 }},
             /*{"“", new byte[] { 0x81, 0x67 }},
@@ -62,26 +50,29 @@ namespace FFXIII_ZTR_Decompressor
             {"』", new byte[] { 0x81, 0x78 }},
             {"【", new byte[] { 0x81, 0x79 }},
             {"】", new byte[] { 0x81, 0x7A }},
-            /*{"+", new byte[] { 0x81, 0x7B }},
-            {"-", new byte[] { 0x81, 0x7C }},
-            {"×", new byte[] { 0x81, 0x7E }},*/
+            {"＋", new byte[] { 0x81, 0x7B }},
+            {"－", new byte[] { 0x81, 0x7C }},
+            //{"×", new byte[] { 0x81, 0x7E }},
             {"゠", new byte[] { 0x81, 0x81 }},
-            /*{"<", new byte[] { 0x81, 0x83 }},
-            {">", new byte[] { 0x81, 0x84 }},*/
+            {"＜", new byte[] { 0x81, 0x83 }},
+            {"＞", new byte[] { 0x81, 0x84 }},
             {"％", new byte[] { 0x81, 0x93 }},
             {"＆", new byte[] { 0x81, 0x95 }},
             {"☆", new byte[] { 0x81, 0x99 }},
             {"★", new byte[] { 0x81, 0x9A }},
-            {"⭘", new byte[] { 0x81, 0x9B }},
-            {"⭗", new byte[] { 0x81, 0x9D }},
-            {"◻", new byte[] { 0x81, 0xA0 }},
-            {"◼", new byte[] { 0x81, 0xA1 }},
-            {"※", new byte[] { 0x81, 0xA4 }},
-            {"→", new byte[] { 0x81, 0xA6 }},
-            {"←", new byte[] { 0x81, 0xA7 }},
-            {"↑", new byte[] { 0x81, 0xA8 }},
-            {"↓", new byte[] { 0x81, 0xA9 }},
+            {"○", new byte[] { 0x81, 0x9B }},
+            {"◎", new byte[] { 0x81, 0x9D }},
+            {"□", new byte[] { 0x81, 0xA0 }},
+            {"■", new byte[] { 0x81, 0xA1 }},
+            {"※", new byte[] { 0x81, 0xA6 }},
+            {"→", new byte[] { 0x81, 0xA8 }},
+            {"←", new byte[] { 0x81, 0xA9 }},
+            {"↑", new byte[] { 0x81, 0xAA }},
+            {"↓", new byte[] { 0x81, 0xAB }},
             #endregion
+        };
+        public static Dictionary<string, byte[]> _GameCode = new Dictionary<string, byte[]>
+        {
             #region Latin Characters (ASCII)
             {"€", new byte[] { 0x85, 0x40 }},
             {"‚", new byte[] { 0x85, 0x42 }},

@@ -15,17 +15,26 @@ namespace FFXIII_ZTR_Decompressor
             {
                 foreach (string file in args)
                 {
+                    string fileName = Path.GetFileNameWithoutExtension(file);
                     string ext = Path.GetExtension(file).ToLower();
                     if (ext == ".txt")
                     {
-                        string ztr = Path.Combine(Path.GetDirectoryName(file), $"{Path.GetFileNameWithoutExtension(file)}.ztr");
-                        byte[] result = ZTR.Compressor(ztr, file);
+                        string name = fileName.Split((char)46).First();
+                        string lang = name.Substring(name.Length - 3);
+                        int encodingCode;
+                        if (!GameEncoding._EncodingCode.TryGetValue(lang, out encodingCode)) encodingCode = 65001;
+                        string ztr = Path.Combine(Path.GetDirectoryName(file), $"{fileName}.ztr");
+                        byte[] result = ZTR.Compressor(ztr, file, encodingCode);
                         File.WriteAllBytes($"{file}.ztr", result);
                     }
                     else if (ext == ".ztr")
                     {
-                        string[] result = ZTR.Decompressor(file);
-                        File.WriteAllLines(Path.Combine(Path.GetDirectoryName(file), $"{Path.GetFileNameWithoutExtension(file)}.txt"), result);
+                        string name = fileName.Split((char)46).First();
+                        string lang = name.Substring(name.Length - 3);
+                        int encodingCode;
+                        if (!GameEncoding._EncodingCode.TryGetValue(lang, out encodingCode)) encodingCode = 65001;
+                        string[] result = ZTR.Decompressor(file, encodingCode);
+                        File.WriteAllLines(Path.Combine(Path.GetDirectoryName(file), $"{fileName}.txt"), result);
                     }
                 }
             }

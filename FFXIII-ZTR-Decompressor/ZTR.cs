@@ -9,6 +9,7 @@ namespace FFXIII_ZTR_Decompressor
 {
     public static class ZTR
     {
+        #region Structures
         private struct Header
         {
             public int Magic;
@@ -32,6 +33,7 @@ namespace FFXIII_ZTR_Decompressor
             public int DictSize;
             public Dictionary<byte, byte[]> Dict;
         }
+        #endregion
         private static Header ReadHeader(ref BeBinaryReader reader)
         {
             reader.BaseStream.Seek(0, SeekOrigin.Begin);
@@ -110,7 +112,7 @@ namespace FFXIII_ZTR_Decompressor
             string[] result = Encoding.ASCII.GetString(totalBytes.ToArray()).Split((char)0);
             return result.Take(result.Length - 1).ToArray();
         }
-        private static string[] DecompressText(ref BeBinaryReader reader, Header header)
+        private static string[] DecompressText(ref BeBinaryReader reader, Header header, int encodingCode)
         {
             List<byte> totalBytes = new List<byte>();
             long pointer = 0;
@@ -128,9 +130,10 @@ namespace FFXIII_ZTR_Decompressor
                     pointer++;
                 }
             }
-            //File.WriteAllBytes(Path.Combine(Environment.CurrentDirectory, "Decompressed.ztr"), totalBytes.ToArray());
             string[] result = new string[header.TextCount];
-            Dictionary<string, byte[]> gameCode = GameEncoding._GameCode;
+            Dictionary<string, byte[]> gameCode = new Dictionary<string, byte[]>();
+            foreach (KeyValuePair<string, byte[]> entry in GameEncoding._GameCode) gameCode.Add(entry.Key, entry.Value);
+            if (encodingCode == 65001) foreach (KeyValuePair<string, byte[]> entry in GameEncoding._JapaneseSymbol) gameCode.Add(entry.Key, entry.Value);
             int index = 0;
             for (int i = 0; i < result.Length; i++)
             {
@@ -149,12 +152,13 @@ namespace FFXIII_ZTR_Decompressor
                     byte[] temp = ByteArrayHandler.ReplaceBytes(textBytes.ToArray(), entry.Value, Encoding.UTF8.GetBytes(entry.Key));
                     if (temp != null) textBytes = temp.ToList();
                 }
-                result[i] = Encoding.UTF8.GetString(textBytes.ToArray());
+                Encoding encoding = Encoding.GetEncoding(encodingCode);
+                result[i] = encoding.GetString(textBytes.ToArray());
                 //Console.WriteLine(result[i]);
             }
             return result.ToArray();
         }
-        public static string[] Decompressor(string input)
+        public static string[] Decompressor(string input, int encodingCode = 65001)
         {
             using (FileStream stream = File.OpenRead(input))
             {
@@ -162,7 +166,7 @@ namespace FFXIII_ZTR_Decompressor
                 Header header = ReadHeader(ref reader);
                 TextInfo[] textInfos = ReadTextInfos(ref reader, header);
                 string[] idsDecompressed = DecompressIDs(ref reader, header);
-                string[] textDecompressed = DecompressText(ref reader, header);
+                string[] textDecompressed = DecompressText(ref reader, header, encodingCode);
                 string[] result = new string[idsDecompressed.Length];
                 for (int i = 0; i < result.Length; i++)
                 {
@@ -172,7 +176,7 @@ namespace FFXIII_ZTR_Decompressor
                 return result;
             }
         }
-        public static byte[] Compressor(string ztr, string txt)
+        public static byte[] Compressor(string ztr, string txt, int encodingCode = 65001)
         {
             MemoryStream result = new MemoryStream();
             Dictionary<string, string> input = new Dictionary<string, string>();
@@ -195,7 +199,6 @@ namespace FFXIII_ZTR_Decompressor
                                 }
                             } catch { }
                             input.Add(key, string.Join("\n", value.ToArray()));
-                            //Console.WriteLine(string.Join("\n", value.ToArray()));
                         }
                         else line = sr.ReadLine();
                     }
@@ -212,14 +215,16 @@ namespace FFXIII_ZTR_Decompressor
                     long idsCompressedPointer = reader.BaseStream.Position;
                     string[] idsDecompressed = DecompressIDs(ref reader, header);
                     long textCompressedPointer = reader.BaseStream.Position;
-                    Dictionary<string, byte[]> gameCode = GameEncoding._GameCode;
+                    Dictionary<string, byte[]> gameCode = new Dictionary<string, byte[]>();
+                    foreach (KeyValuePair<string, byte[]> entry in GameEncoding._GameCode) gameCode.Add(entry.Key, entry.Value);
+                    if (encodingCode == 65001) foreach (KeyValuePair<string, byte[]> entry in GameEncoding._JapaneseSymbol) gameCode.Add(entry.Key, entry.Value);
                     int uncompressedSize = 0;
                     for (int i = 0; i < idsDecompressed.Length; i++)
                     {
                         string value;
                         if (input.TryGetValue(idsDecompressed[i], out value))
                         {
-                            byte[] bs = Encoding.UTF8.GetBytes(value);
+                            byte[] bs = Encoding.GetEncoding(encodingCode).GetBytes(value);
                             foreach (KeyValuePair<string, byte[]> entry in gameCode)
                             {
                                 byte[] temp = ByteArrayHandler.ReplaceBytes(bs, Encoding.UTF8.GetBytes(entry.Key), entry.Value);

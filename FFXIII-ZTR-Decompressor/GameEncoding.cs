@@ -10,6 +10,7 @@ namespace FFXIII_ZTR_Decompressor
         public static Dictionary<string, int> _EncodingCode = new Dictionary<string, int>
         {
             { "_jp", 932 }, //Japanese (Shift-JIS)
+            { "_kr", 51949 }, //Korean (EUC)
             { "_ch", 950 }, //Chinese Traditional (Big5)	
         };
         private static readonly string[] _LatinCharacters = new string[]

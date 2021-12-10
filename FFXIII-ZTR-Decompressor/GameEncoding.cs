@@ -72,7 +72,7 @@ namespace FFXIII_ZTR_Decompressor
             {"↓", new byte[] { 0x81, 0xAB }},
             #endregion
         };
-        public static Dictionary<string, byte[]> GameCode = new Dictionary<string, byte[]>
+        public static Dictionary<string, byte[]> _GameCode = new Dictionary<string, byte[]>
         {
             #region Latin Characters (ASCII)
             {"€", new byte[] { 0x85, 0x40 }},
@@ -99,7 +99,6 @@ namespace FFXIII_ZTR_Decompressor
             {"œ", new byte[] { 0x85, 0x5C }},
             {"ž", new byte[] { 0x85, 0x5E }},
             {"Ÿ", new byte[] { 0x85, 0x5F }},
-            {" ", new byte[] { 0x85, 0x60 }},
             {"¡", new byte[] { 0x85, 0x61 }},
             {"¢", new byte[] { 0x85, 0x62 }},
             {"£", new byte[] { 0x85, 0x63 }},
@@ -231,18 +230,11 @@ namespace FFXIII_ZTR_Decompressor
             {"{VarF4 66}", new byte[] { 0xF4, 0x42 }},
             {"{VarF4 67}", new byte[] { 0xF4, 0x43 }},
             {"{VarF2 90}", new byte[] { 0xF2, 0x5A }},
-            {"{VarF2 97}", new byte[] { 0xF2, 0x61 }},
-            {"{VarF2 100}", new byte[] { 0xF2, 0x64 }},
-            {"{VarF2 101}", new byte[] { 0xF2, 0x65 }},
-            {"{VarF2 105}", new byte[] { 0xF2, 0x69 }},
             {"{VarF2 114}", new byte[] { 0xF2, 0x72 }},
-            {"{VarF2 115}", new byte[] { 0xF2, 0x73 }},
             {"{VarF2 116}", new byte[] { 0xF2, 0x74 }},
-            {"{VarF2 119}", new byte[] { 0xF2, 0x77 }},
             {"{VarF2 91}", new byte[] { 0xF2, 0x5B }},
             {"{VarF2 92}", new byte[] { 0xF2, 0x5C }},
             {"{VarF2 95}", new byte[] { 0xF2, 0x5F }},
-            {"{VarFF 158}", new byte[] { 0xFF, 0x9E }},
             {"{VarFF 208}", new byte[] { 0xFF, 0xD0 }},
             {"{VarFF 255}", new byte[] { 0xFF, 0xFF }},
             {"{VarFF 241}", new byte[] { 0xFF, 0xF1 }},

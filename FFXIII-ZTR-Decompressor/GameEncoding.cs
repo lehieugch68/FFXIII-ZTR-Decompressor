@@ -240,6 +240,9 @@ namespace FFXIII_ZTR_Decompressor
             {"{VarF4 68}", new byte[] { 0xF4, 0x44 }},
             {"{VarF4 70}", new byte[] { 0xF4, 0x46 }},
             {"{VarF4 72}", new byte[] { 0xF4, 0x48 }},
+            {"{VarF2 79}", new byte[] { 0xF2, 0x4F }},
+            {"{VarF2 82}", new byte[] { 0xF2, 0x52 }},
+            {"{VarF2 87}", new byte[] { 0xF2, 0x57 }},
             {"{VarF2 90}", new byte[] { 0xF2, 0x5A }},
             {"{VarF2 97}", new byte[] { 0xF2, 0x61 }},
             {"{VarF2 100}", new byte[] { 0xF2, 0x64 }},
@@ -268,6 +271,13 @@ namespace FFXIII_ZTR_Decompressor
             {"{VarF7 66}", new byte[] { 0xF7, 0x42 }},
             {"{Var82 152}", new byte[] { 0x82, 0x98 }},
             {"{Var83 182}", new byte[] { 0x83, 0xB6 }},
+            {"{Var87 64}", new byte[] { 0x87, 0x40 }},
+            {"{Var87 65}", new byte[] { 0x87, 0x41 }},
+            {"{Var87 66}", new byte[] { 0x87, 0x42 }},
+            {"{Var87 67}", new byte[] { 0x87, 0x43 }},
+            {"{Var87 68}", new byte[] { 0x87, 0x44 }},
+            {"{Var87 69}", new byte[] { 0x87, 0x45 }},
+            {"{Var87 70}", new byte[] { 0x87, 0x46 }},
 
             #region Icons
             {"{Icon Clock}", new byte[] { 0xF0, 0x40 }},

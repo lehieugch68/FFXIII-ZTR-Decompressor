@@ -37,6 +37,7 @@ namespace FFXIII_ZTR_Decompressor
         public static Dictionary<string, byte[]> JapaneseSymbol = new Dictionary<string, byte[]>
         {
             #region SHIFT JIS Symbols
+            {"{Unknown}", new byte[] { 0x81, 0x40 } }, //resident/system $pause_05a
             {"、", new byte[] { 0x81, 0x41 } },
             {"。", new byte[] { 0x81, 0x42 } },
             {"･", new byte[] { 0x81, 0x45 }},
@@ -161,7 +162,8 @@ namespace FFXIII_ZTR_Decompressor
             {"Ô", new byte[] { 0x85, 0x94 }},
             {"Õ", new byte[] { 0x85, 0x95 }},
             {"Ö", new byte[] { 0x85, 0x96 }},
-            {"×", new byte[] { 0x85, 0x97 }},
+            //{"×", new byte[] { 0x85, 0x97 }},
+            {"×", new byte[] { 0x85, 0xB6 }},
             {"Ø", new byte[] { 0x85, 0x98 }},
             {"Ù", new byte[] { 0x85, 0x99 }},
             {"Ú", new byte[] { 0x85, 0x9A }},

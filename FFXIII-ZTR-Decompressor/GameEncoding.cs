@@ -7,28 +7,37 @@ namespace FFXIII_ZTR_Decompressor
 {
     public static class GameEncoding
     {
-        public static Dictionary<string, int> _EncodingCode = new Dictionary<string, int>
+        public static Dictionary<string, int> EncodingCode = new Dictionary<string, int>
         {
             { "_jp", 932 }, //Japanese (Shift-JIS)
             { "_kr", 51949 }, //Korean (EUC)
             { "_ch", 950 }, //Chinese Traditional (Big5)	
         };
-        private static readonly string[] _LatinCharacters = new string[]
+
+        public static string[] LatinCharacters { get; } = new string[]
         {
             " ", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/",
             "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":", ";", "<", "=", ">", "?", "@",
-            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+            "V", "W", "X", "Y", "Z",
             "[", "\\", "]", "^", "_", "`",
-            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-            "{", "|", "}", "~", null, "€", null, "‚", null, "„", "…", "†", "‡", null, "‰", "Š", "‹", "Œ", null, "Ž", null, null, "‘", "’", "“", "”", "•",
-            "–", "—", null, "™", "š", "›", "œ", null, "ž", "Ÿ", null, "¡", "¢", "£", "¤", "¥", "¦", "§", "¨", "©", "ª", "«", "¬", null, "®", "¯", "°", "±",
-            "²", "³", "´", "µ", "¶", "·", "¸", "¹", "º", "»", "¼", "½", "¾", "¿", "À", "Á", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "Ê", "Ë", "Ì", "Í",
-            "Î", "Ï", "Ð", "Ñ", "Ò", "Ó", "Ô", "Õ", "Ö", "×", "Ø", "Ù", "Ú", "Û", "Ü", "Ý", "Þ", "ß", "à", "á", "â", "ã", "ä", "å", "æ", "ç", "è", "é",
+            "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
+            "v", "w", "x", "y", "z",
+            "{", "|", "}", "~", null, "€", null, "‚", null, "„", "…", "†", "‡", null, "‰", "Š", "‹", "Œ", null, "Ž",
+            null, null, "‘", "’", "“", "”", "•",
+            "–", "—", null, "™", "š", "›", "œ", null, "ž", "Ÿ", null, "¡", "¢", "£", "¤", "¥", "¦", "§", "¨", "©", "ª",
+            "«", "¬", null, "®", "¯", "°", "±",
+            "²", "³", "´", "µ", "¶", "·", "¸", "¹", "º", "»", "¼", "½", "¾", "¿", "À", "Á", "Â", "Ã", "Ä", "Å", "Æ",
+            "Ç", "È", "É", "Ê", "Ë", "Ì", "Í",
+            "Î", "Ï", "Ð", "Ñ", "Ò", "Ó", "Ô", "Õ", "Ö", "×", "Ø", "Ù", "Ú", "Û", "Ü", "Ý", "Þ", "ß", "à", "á", "â",
+            "ã", "ä", "å", "æ", "ç", "è", "é",
             "ê", "ë", "ì", "í", "î", "ï", "ð", "ñ", "ò", "ó", "ô", "õ", "ö", "÷", "ø", "ù", "ú", "û", "ü", "ý", "þ", "ÿ"
         };
-        public static Dictionary<string, byte[]> _JapaneseSymbol = new Dictionary<string, byte[]>
+
+        public static Dictionary<string, byte[]> JapaneseSymbol = new Dictionary<string, byte[]>
         {
             #region SHIFT JIS Symbols
+            {"{Unknown}", new byte[] { 0x81, 0x40 } }, //resident/system $pause_05a
             {"、", new byte[] { 0x81, 0x41 } },
             {"。", new byte[] { 0x81, 0x42 } },
             {"･", new byte[] { 0x81, 0x45 }},
@@ -72,7 +81,7 @@ namespace FFXIII_ZTR_Decompressor
             {"↓", new byte[] { 0x81, 0xAB }},
             #endregion
         };
-        public static Dictionary<string, byte[]> _GameCode = new Dictionary<string, byte[]>
+        public static Dictionary<string, byte[]> GameCode = new Dictionary<string, byte[]>
         {
             #region Latin Characters (ASCII)
             {"€", new byte[] { 0x85, 0x40 }},
@@ -98,8 +107,7 @@ namespace FFXIII_ZTR_Decompressor
             {"›", new byte[] { 0x85, 0x5B }},
             {"œ", new byte[] { 0x85, 0x5C }},
             {"ž", new byte[] { 0x85, 0x5E }},
-            {"Ÿ", new byte[] { 0x85, 0x5F }},
-            {" ", new byte[] { 0x85, 0x60 }},
+            {"Ÿ", new byte[] { 0x85, 0x5F }},            
             {"¡", new byte[] { 0x85, 0x61 }},
             {"¢", new byte[] { 0x85, 0x62 }},
             {"£", new byte[] { 0x85, 0x63 }},
@@ -154,7 +162,8 @@ namespace FFXIII_ZTR_Decompressor
             {"Ô", new byte[] { 0x85, 0x94 }},
             {"Õ", new byte[] { 0x85, 0x95 }},
             {"Ö", new byte[] { 0x85, 0x96 }},
-            {"×", new byte[] { 0x85, 0x97 }},
+            //{"×", new byte[] { 0x85, 0x97 }},
+            {"×", new byte[] { 0x85, 0xB6 }},
             {"Ø", new byte[] { 0x85, 0x98 }},
             {"Ù", new byte[] { 0x85, 0x99 }},
             {"Ú", new byte[] { 0x85, 0x9A }},
@@ -233,6 +242,9 @@ namespace FFXIII_ZTR_Decompressor
             {"{VarF4 68}", new byte[] { 0xF4, 0x44 }},
             {"{VarF4 70}", new byte[] { 0xF4, 0x46 }},
             {"{VarF4 72}", new byte[] { 0xF4, 0x48 }},
+            {"{VarF2 79}", new byte[] { 0xF2, 0x4F }},
+            {"{VarF2 82}", new byte[] { 0xF2, 0x52 }},
+            {"{VarF2 87}", new byte[] { 0xF2, 0x57 }},
             {"{VarF2 90}", new byte[] { 0xF2, 0x5A }},
             {"{VarF2 97}", new byte[] { 0xF2, 0x61 }},
             {"{VarF2 100}", new byte[] { 0xF2, 0x64 }},
@@ -261,6 +273,13 @@ namespace FFXIII_ZTR_Decompressor
             {"{VarF7 66}", new byte[] { 0xF7, 0x42 }},
             {"{Var82 152}", new byte[] { 0x82, 0x98 }},
             {"{Var83 182}", new byte[] { 0x83, 0xB6 }},
+            {"{Var87 64}", new byte[] { 0x87, 0x40 }},
+            {"{Var87 65}", new byte[] { 0x87, 0x41 }},
+            {"{Var87 66}", new byte[] { 0x87, 0x42 }},
+            {"{Var87 67}", new byte[] { 0x87, 0x43 }},
+            {"{Var87 68}", new byte[] { 0x87, 0x44 }},
+            {"{Var87 69}", new byte[] { 0x87, 0x45 }},
+            {"{Var87 70}", new byte[] { 0x87, 0x46 }},
 
             #region Icons
             {"{Icon Clock}", new byte[] { 0xF0, 0x40 }},
@@ -317,6 +336,7 @@ namespace FFXIII_ZTR_Decompressor
             {"{Icon Sphere}", new byte[] { 0xF0, 0x73 }},
             {"{Icon Neck}", new byte[] { 0xF0, 0x74 }},
             #endregion
+            #region Keys
             {"{Key Cross}", new byte[] { 0xF1, 0x40 }},
             {"{Key Circle}", new byte[] { 0xF1, 0x41 }},
             {"{Key Square}", new byte[] { 0xF1, 0x42 }},
@@ -351,6 +371,7 @@ namespace FFXIII_ZTR_Decompressor
             {"{Key LeftRightPad}", new byte[] { 0xF1, 0x5F }},
             {"{Key Arrows}", new byte[] { 0xF1, 0x60 }},
             {"{Key PadLeft}", new byte[] { 0xF1, 0x61 }},
+#endregion
 
             {"{End}", new byte[] { 0x0 }},
             {"{Escape}", new byte[] { 0x1 }},
@@ -358,8 +379,9 @@ namespace FFXIII_ZTR_Decompressor
             {"{Many}", new byte[] { 0x3 }},
             {"{Article}", new byte[] { 0x4 }},
             {"{ArticleMany}", new byte[] { 0x5 }},
-            {"{Text NewLine}", new byte[] { 0x40, 0x72 }},
-            {"{Text NewPage}", new byte[] { 0x40, 0x70 }}
+            {"{Text Tab}", new byte[] { 0x85, 0x60 }}, //Unicode Character 'NO-BREAK SPACE' (U+00A0) Used on resident/system.
+            {"{TextNewLine}", new byte[] { 0x40, 0x72 }},
+            {"{TextNewPage}", new byte[] { 0x40, 0x70 }}
         };
     }
 }

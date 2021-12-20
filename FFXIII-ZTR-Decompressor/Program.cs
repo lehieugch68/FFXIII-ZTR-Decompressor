@@ -17,24 +17,25 @@ namespace FFXIII_ZTR_Decompressor
                 {
                     string fileName = Path.GetFileNameWithoutExtension(file);
                     string ext = Path.GetExtension(file).ToLower();
-                    if (ext == ".txt")
+                    string name = fileName.Split((char)46).First();
+                    string lang = name.Substring(name.Length - 3);
+                    if (!GameEncoding.EncodingCode.TryGetValue(lang, out int encodingCode)) encodingCode = 65001;
+
+                    switch (ext)
                     {
-                        string name = fileName.Split((char)46).First();
-                        string lang = name.Substring(name.Length - 3);
-                        int encodingCode;
-                        if (!GameEncoding._EncodingCode.TryGetValue(lang, out encodingCode)) encodingCode = 65001;
-                        string ztr = Path.Combine(Path.GetDirectoryName(file), $"{fileName}.ztr");
-                        byte[] result = ZTR.Compressor(ztr, file, encodingCode);
-                        File.WriteAllBytes($"{file}.ztr", result);
-                    }
-                    else if (ext == ".ztr")
-                    {
-                        string name = fileName.Split((char)46).First();
-                        string lang = name.Substring(name.Length - 3);
-                        int encodingCode;
-                        if (!GameEncoding._EncodingCode.TryGetValue(lang, out encodingCode)) encodingCode = 65001;
-                        string[] result = ZTR.Decompressor(file, encodingCode);
-                        File.WriteAllLines(Path.Combine(Path.GetDirectoryName(file), $"{fileName}.txt"), result);
+                        case ".txt":
+                        {
+                            string ztr = Path.Combine(Path.GetDirectoryName(file), $"{fileName}.ztr");
+                            byte[] result = ZTR.Compressor(ztr, file, encodingCode);
+                            File.WriteAllBytes($"{file}.ztr", result);
+                            break;
+                        }
+                        case ".ztr":
+                        {
+                            string[] result = ZTR.Decompressor(file, encodingCode);
+                            File.WriteAllLines(Path.Combine(Path.GetDirectoryName(file), $"{fileName}.txt"), result);
+                            break;
+                        }
                     }
                 }
             }

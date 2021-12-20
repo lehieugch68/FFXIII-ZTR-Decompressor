@@ -156,12 +156,13 @@ namespace FFXIII_ZTR_Decompressor
                 }
                 Encoding encoding = Encoding.GetEncoding(encodingCode);
                 result[i] = encoding.GetString(textBytes.ToArray());
-                //if (result[i].Contains("Quit"))
+                //if (result[i].Contains("Ataque↑"))
                 //{
                 //    foreach (var S in textBytes.ToArray())
                 //    {
                 //        Console.Write($" {S:X} ");
                 //    }
+                //    Console.WriteLine();
                 //    Console.WriteLine(result[i]);
                 //}
             }

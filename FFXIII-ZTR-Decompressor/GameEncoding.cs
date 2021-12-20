@@ -79,6 +79,26 @@ namespace FFXIII_ZTR_Decompressor
             {"←", new byte[] { 0x81, 0xA9 }},
             {"↑", new byte[] { 0x81, 0xAA }},
             {"↓", new byte[] { 0x81, 0xAB }},
+
+            {"①", new byte[] { 0x87, 0x40 }},
+            {"②", new byte[] { 0x87, 0x41 }},
+            {"③", new byte[] { 0x87, 0x42 }},
+            {"④", new byte[] { 0x87, 0x43 }},
+            {"⑤", new byte[] { 0x87, 0x44 }},
+            {"⑥", new byte[] { 0x87, 0x45 }},
+            {"⑦", new byte[] { 0x87, 0x46 }},
+            {"⑧", new byte[] { 0x87, 0x47 }},
+            {"⑨", new byte[] { 0x87, 0x48 }},
+
+            {"Ⅰ", new byte[] { 0x87, 0x54 }},
+            {"Ⅱ", new byte[] { 0x87, 0x55 }},
+            {"Ⅲ", new byte[] { 0x87, 0x56 }},
+            {"Ⅳ", new byte[] { 0x87, 0x57 }},
+            {"Ⅴ", new byte[] { 0x87, 0x58 }},
+            {"Ⅵ", new byte[] { 0x87, 0x59 }},
+            {"Ⅶ", new byte[] { 0x87, 0x5A }},
+            {"Ⅷ", new byte[] { 0x87, 0x5B }},
+            {"Ⅸ", new byte[] { 0x87, 0x5C }},
             #endregion
         };
         public static Dictionary<string, byte[]> GameCode = new Dictionary<string, byte[]>
@@ -273,13 +293,6 @@ namespace FFXIII_ZTR_Decompressor
             {"{VarF7 66}", new byte[] { 0xF7, 0x42 }},
             {"{Var82 152}", new byte[] { 0x82, 0x98 }},
             {"{Var83 182}", new byte[] { 0x83, 0xB6 }},
-            {"{Var87 64}", new byte[] { 0x87, 0x40 }},
-            {"{Var87 65}", new byte[] { 0x87, 0x41 }},
-            {"{Var87 66}", new byte[] { 0x87, 0x42 }},
-            {"{Var87 67}", new byte[] { 0x87, 0x43 }},
-            {"{Var87 68}", new byte[] { 0x87, 0x44 }},
-            {"{Var87 69}", new byte[] { 0x87, 0x45 }},
-            {"{Var87 70}", new byte[] { 0x87, 0x46 }},
 
             #region Icons
             {"{Icon Clock}", new byte[] { 0xF0, 0x40 }},
@@ -380,8 +393,8 @@ namespace FFXIII_ZTR_Decompressor
             {"{Article}", new byte[] { 0x4 }},
             {"{ArticleMany}", new byte[] { 0x5 }},
             {"{Text Tab}", new byte[] { 0x85, 0x60 }}, //Unicode Character 'NO-BREAK SPACE' (U+00A0) Used on resident/system.
-            {"{TextNewLine}", new byte[] { 0x40, 0x72 }},
-            {"{TextNewPage}", new byte[] { 0x40, 0x70 }}
+            {"{Text NewLine}", new byte[] { 0x40, 0x72 }},
+            {"{Text NewPage}", new byte[] { 0x40, 0x70 }}
         };
     }
 }
